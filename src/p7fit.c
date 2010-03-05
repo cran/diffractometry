@@ -1,13 +1,9 @@
-/* tfp7-3a.c */
-/* Approximation der Dünnschichtdaten mittels Pearson-Type-VII-Kurven*/
-/* Diverse Umparametrisierungen */
+/* p7fit.c */
+/* Approximation of Thin film Data using Pearson VII Curves */
 
-/* NEU: Gewichtete KQ-Anpassung mittels TS */
-
-/* p7 wertet Pearson VII - Kurve an der Stelle t aus 
-   m = Exponent, mu = Lokation, a = Skalenparameter
-   Ohne Normierungskonstante!
-   Shape jetzt nach oben durch 10000 beschränkt!
+/* p7 evaluates Pearson VII - Curve at t  
+   m = exponent, mu = location, a = scale parameter
+   not normalized to give a density
 */
 
 #include <math.h>

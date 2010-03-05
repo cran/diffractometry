@@ -29,7 +29,10 @@ Calls \code{\link{pkdecompint}} to decompose the peaks found by \code{\link{base
 \value{
 A vector of lists as given by \code{\link{pkdecompint}}
 }
-\references{P.L. Davies, U. Gather, M. Meise, D. Mergel, T. Mildenberger (2008): "Residual based localization and quantification of peaks in x-ray diffractograms", to appear in the Annals of Applied Statistics. \url{http://arxiv.org/abs/0711.3687} 
+\references{P.L. Davies, U. Gather, M. Meise, D. Mergel, T. Mildenberger (2008): 
+"Residual based localization and quantification of peaks in x-ray diffractograms", 
+Annals of Applied Statistics, Vol. 2, No. 3, 861-886.. 
+\url{http://www.statistik.tu-dortmund.de/fileadmin/user_upload/Lehrstuehle/MSind/Publikationen/2008/2008_-_Davies_Gather_Meise_Mergel_Mildenberger_-_Residual_based_localization_and_quantification_of_peaks_in_x-ray_diffractograms.pdf}
 
 T. Bernholt and T. Hofmeister (2006): "An algorithm for a generalized maximum subsequence
 problem", in: J. Correa, A. Hevia, M. Kiwi (editors), "Latin 2006: Theoretical

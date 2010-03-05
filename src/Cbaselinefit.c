@@ -149,7 +149,7 @@ void basiserg(int *np,
 	      int *pindr)
 {
   double x1, x2, y1, y2, a, b;
-  int i,j,im;
+  int i,j;
   j=0;
   indl[0]=pindl[0];
   indr[0]=pindr[0];
@@ -282,7 +282,7 @@ void cholesky(double *A, int *n, double *L,int *FFF)
 
 void vorwaerts(double *L, int *n, double *QTY, double *CCC)
 {
-  int i,k,j;
+  int i,k;
   if(fabs(L[0])<TOL)
       printf("Nicht loesbar! L[0]=0.0\n");
   else{
@@ -328,7 +328,7 @@ void rueckwaerts(double *L, int *n, double *GGG, double *CCC)
 
 void neben(double *Q, double *w, double *a, double *R,int *n,double *erg)
 {
-  int i,j,k,l,r,ll,rr;
+  int i,j,k,r,ll,rr;
   for (k=0;k<(*n-2);k++){
     if((k+2)>(*n-3)) r=*n-3;
     else r=k+2;
@@ -367,10 +367,10 @@ void wsspoisschngd(double *x,
 		   int *shrtint,
            int *memok)
 {
-  int i,j,k,actwdth, firstwdth;
+  int i,j,k, firstwdth;
   double h[*n-1], *qty, *Q, *R, *T, *w1,*L, *D, *G, *res;
   double *a;
-  int *Z, STP, STT, *F, *N, counter,r;
+  int *Z, STP, STT, *F, *N, counter;
   a=(double *)malloc(1*sizeof(double));
   Z=(int *)malloc(1*sizeof(int));
   F=(int *)malloc(1*sizeof(int));

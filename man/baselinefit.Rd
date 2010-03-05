@@ -33,7 +33,11 @@ Returns a list with components
   \item{x}{x values of the data.}
   \item{y}{y values of the data.} 
 }
-\references{P.L. Davies, U. Gather, M. Meise, D. Mergel, T. Mildenberger (2008): "Residual based localization and quantification of peaks in x-ray diffractograms", to appear in the Annals of Applied Statistics. \url{http://arxiv.org/abs/0711.3687} }
+\references{P.L. Davies, U. Gather, M. Meise, D. Mergel, T. Mildenberger (2008): 
+"Residual based localization and quantification of peaks in x-ray diffractograms", 
+Annals of Applied Statistics, Vol. 2, No. 3, 861-886.. 
+\url{http://www.statistik.tu-dortmund.de/fileadmin/user_upload/Lehrstuehle/MSind/Publikationen/2008/2008_-_Davies_Gather_Meise_Mergel_Mildenberger_-_Residual_based_localization_and_quantification_of_peaks_in_x-ray_diffractograms.pdf}
+}
 \author{M. Meise and P.L. Davies}
 %\note{ ~~further notes~~ 
 %

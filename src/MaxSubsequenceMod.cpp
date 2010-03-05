@@ -1,17 +1,14 @@
 // Test.cpp : Defines the entry point for the console application.
 //
 
-//#include "stdafx.h"
+
 #include <iostream>
 #include <vector>
 #include <math.h>
-//#include <time.h>
 
 using namespace std;
 
-double* input;
 int n;
-const int MAXN = 100;
 
 vector<double> add(vector<double>& vec1, vector<double>& vec2)
 {
@@ -20,29 +17,6 @@ vector<double> add(vector<double>& vec1, vector<double>& vec2)
   result.push_back(vec1.at(1) + vec2.at(1));
   return result;
 }
-
-/*
-void createInput()
-{
-  cout << "Anzahl Elemente: ";
-  cin >> n;
-  cin.get();
-  cout << "\n";
-
-  input = new double[n];
-
-  double j;
-
-  for (int i = 0; i < n; i++) {
-    j = rand() / (RAND_MAX + 1.0);
-    if(j < 0.5)
-      input[i] = MAXN * j;
-    else
-      input[i] = -MAXN * j;
-    //cout << a[i] << endl;
-  }
-}
-*/
 
 double f(double l, double s)
 {
@@ -137,13 +111,10 @@ double maxSubsequence(double* a, int left, int right)
   vector<double>* b = new vector<double>[length];
   b[0].push_back(1);
   b[0].push_back(a[middle - 1]);
-  /*cout << "i = " << i << ", j = " << j << endl;
-  cout << "b[0] = (" << b[0].at(0) << ", " << b[0].at(1) << ")" << endl;*/
   for(int i = 1; i < length; i++)
   {
     b[i].push_back(b[i-1].at(0) + 1);
     b[i].push_back(b[i-1].at(1) + a[middle - 1 - i]);
-    /*cout << "b[i] = (" << b[i].at(0) << ", " << b[i].at(1) << ")" << endl;*/
   }
   
   /** Now the right half.
@@ -153,12 +124,10 @@ double maxSubsequence(double* a, int left, int right)
   vector<double> * b2 = new vector<double>[length2];
   b2[0].push_back(1);
   b2[0].push_back(a[middle]);
-  /*cout << "b2[0] = (" << b2[0].at(0) << ", " << b2[0].at(1) << ")" << endl;*/
   for(int i = 1; i < length2; i++)
   {
     b2[i].push_back(b2[i-1].at(0) + 1);
     b2[i].push_back(b2[i-1].at(1) + a[middle + i]);
-    /*cout << "b2[i] = (" << b2[i].at(0) << ", " << b2[i].at(1) << ")" << endl;*/
   }
   
   /** Compute the upper convex hull p_1, ..., p_r of b_1, ..., b_length and
@@ -221,52 +190,12 @@ double maxSubsequence(double* a, int left, int right)
       return opt_crossing;
 }
 
-double bruteForce()
-{
-  double max = f(1, input[0]);
-  for(int i = 0; i < n; i++)
-  {
-    double sum = 0;
-    for(int j = i; j < n; j++)
-    {
-      sum += input[j];
-      double v = f(j - i + 1, sum);
-      if(v > max)
-        max = v;
-    }
-  }
-  return max;
-}
-
+extern "C" {
 void multires(double *a , double *erg, int *n) 
      {
      int right;
      right=*n;
      *erg=maxSubsequence(a, 1, right);  
      }
-
-/*
-int _tmain(int argc, _TCHAR* argv[])
-{ */
-  /** Set evil seed (initial seed) */
-/*  srand( (unsigned)time( NULL ) );
-
-  createInput(); //create  the array "input".
-
-  double result = maxSubsequence(input, 1, n);
-
-  cout << "Result is: " << result << endl;
-
-  result = bruteForce();
-
-  cout << "Bruteforce is: " << result << endl;
-
-
-  delete[]input;
-
-  //close program
-  cin.get();
-
-	return 0;
 }
-*/
+

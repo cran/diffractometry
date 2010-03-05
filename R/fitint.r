@@ -91,14 +91,14 @@ partransoutp<-function(par,left,h) {
 
 ### Funktionen für MRB 
 
-mr<-function(resid) .C("_Z8multiresPdS_Pi",as.double(resid),as.double(1),as.integer(length(resid)),PACKAGE="diffractometry")[[2]]
+mr<-function(resid) .C("multires",as.double(resid),as.double(1),as.integer(length(resid)),PACKAGE="diffractometry")[[2]]
 
 `mrqsim` <-
 function(n,alpha,rep=10000) {
 empvert<-rep(0,rep)
 	for(i in 1:rep) {
 	test<-rnorm(n,mean=0,sd=1)
-	empvert[i]<-.C("_Z8multiresPdS_Pi",as.double(test),as.double(1),as.integer(length(test)),PACKAGE="diffractometry")[[2]]
+	empvert[i]<-.C("multires",as.double(test),as.double(1),as.integer(length(test)),PACKAGE="diffractometry")[[2]]
 	}
 	thresh<-quantile(empvert,prob=1-alpha)
 	thresh
@@ -200,7 +200,7 @@ l<-l+1
 	erg.rss<-erg2$rss
 	erg.par<-erg$par
 
-	if (.C("_Z8multiresPdS_Pi",as.double(erg.resid),as.double(1),as.integer(n),PACKAGE="diffractometry" )[[2]]<=dispers*thresh) fit.not.ok<-0
+	if (.C("multires",as.double(erg.resid),as.double(1),as.integer(n),PACKAGE="diffractometry" )[[2]]<=dispers*thresh) fit.not.ok<-0
 
 	}
 	}

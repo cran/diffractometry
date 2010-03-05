@@ -16,7 +16,11 @@ i.e. indium oxide doped with tin. This material is usually called ITO
 It has a good electrical conductivity and is transparent in the visible wave
 length region. 
 The first column of the matrix contains the angles of diffraction, the second column contains the corresponding photon counts.}
-\references{P.L. Davies, U. Gather, M. Meise, D. Mergel, T. Mildenberger (2008): "Residual based localization and quantification of peaks in x-ray diffractograms", to appear in the Annals of Applied Statistics. \url{http://arxiv.org/abs/0711.3687} }
+\references{P.L. Davies, U. Gather, M. Meise, D. Mergel, T. Mildenberger (2008): 
+"Residual based localization and quantification of peaks in x-ray diffractograms", 
+Annals of Applied Statistics, Vol. 2, No. 3, 861-886.. 
+\url{http://www.statistik.tu-dortmund.de/fileadmin/user_upload/Lehrstuehle/MSind/Publikationen/2008/2008_-_Davies_Gather_Meise_Mergel_Mildenberger_-_Residual_based_localization_and_quantification_of_peaks_in_x-ray_diffractograms.pdf}
+}
 \author{ D. Mergel }
 %\note{ ~~further notes~~ 
 %
