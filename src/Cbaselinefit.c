@@ -111,7 +111,7 @@ void exber_maxwdth(double * wss,   /* Ergebnis des weighted smoothing splines */
       indr[j]+=i;
     }
     kn=indr[j]-indl[j]+1;
-    diffsort=(double *)malloc(kn*sizeof(double));
+    diffsort=(double *)calloc(kn,sizeof(double));
     for(k=0;k<kn;k++)
       diffsort[k]=fabs(diffwss[indl[j]-1+k]);
     qsort(diffsort, kn,sizeof(double), sortfunction);
@@ -217,7 +217,7 @@ void multiwdwrchngd(double *y, int *n, double thresh, int *firstwidth, int lastw
   int j, actwidth, leftind, rightind;
   double *ysum;
   
-  ysum=(double *)malloc((*n+1)*sizeof(double));
+  ysum=(double *)calloc((*n+1),sizeof(double));
   ysum[0]=0;
   for(j=1;j<=*n;j++)
     ysum[j]=ysum[j-1]+y[j-1];
@@ -371,19 +371,19 @@ void wsspoisschngd(double *x,
   double h[*n-1], *qty, *Q, *R, *T, *w1,*L, *D, *G, *res;
   double *a;
   int *Z, STP, STT, *F, *N, counter;
-  a=(double *)malloc(1*sizeof(double));
-  Z=(int *)malloc(1*sizeof(int));
-  F=(int *)malloc(1*sizeof(int));
-  N=(int *)malloc(1*sizeof(int));
-  qty = (double *)malloc((*n-2)*sizeof(double));
+  a=(double *)calloc(1,sizeof(double));
+  Z=(int *)calloc(1,sizeof(int));
+  F=(int *)calloc(1,sizeof(int));
+  N=(int *)calloc(1,sizeof(int));
+  qty = (double *)calloc((*n-2),sizeof(double));
   Q = (double *)calloc(*n*(*n-2),sizeof(double));
   R = (double *)calloc((*n-2)*(*n-2),sizeof(double));
   T = (double *)calloc((*n-2)*(*n-2),sizeof(double));
   L = (double *)calloc((*n-2)*(*n-2),sizeof(double));
-  w1 = (double *)malloc(*n*sizeof(double));
-  D = (double *)malloc((*n-2)*sizeof(double));
-  G = (double *)malloc((*n-2)*sizeof(double));
-  res= (double *)malloc(*n*sizeof(double));
+  w1 = (double *)calloc(*n,sizeof(double));
+  D = (double *)calloc((*n-2),sizeof(double));
+  G = (double *)calloc((*n-2),sizeof(double));
+  res= (double *)calloc(*n,sizeof(double));
 
   *memok = (a==NULL)+(Z==NULL)+(F==NULL)+(N==NULL)+(qty==NULL)+(Q==NULL)+(R==NULL)+(T==NULL)+(L==NULL)+(w1==NULL)+(D==NULL)+(G==NULL)+(res==NULL);
   if (*memok!=0) {

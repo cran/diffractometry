@@ -28,7 +28,7 @@
     stop("tau must be between [2,4]")
   }  
   # Taut String Anpassung #
-  # out=TRUE: AusreiÃŸer werden eleminiert, dann muessen im folgenden pmg$y als Daten verwendet werden
+  # out=TRUE: Ausreisser werden eleminiert, dann muessen im folgenden pmg$y als Daten verwendet werden
   pmg <- fnpregm(data[,2],tau=tau,p=1.25,scl.factor=scl.factor, out=TRUE)
   # Abfrage ob Peak vorhanden
   if(pmg$pks == 0)
@@ -54,7 +54,11 @@
 
 # Anpassung der Basislinie mit WSS #
   bs <- wsspoiss(data[-indextr,1],pmg$y[-indextr],sqfn=pmg$scl[-indextr],thresh=spl$thresh)
-  
+	if (bs$mem!=0) {
+		print("Not enough memory for spline approximation!")
+		return(0)
+		}
+ 
   # lineare Zwischenstuecke unter Peaks #
   basiserg <- basiserg(data[,1],pmg$y,bs$reg, exb$indl,exb$indr,indextr)
 
