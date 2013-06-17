@@ -5,6 +5,7 @@ C
      1         NKNTS,NPEAK,MULT,LCL,TRIANG,RUN,VERB,BMM,EPS,DDMAX)
       INTEGER NPEAK,N,NKNTS
       DOUBLE PRECISION Y(N),SCL(N),SY(N+1),L(N+1),U(N+1),F(N+1)
+C      DOUBLE PRECISION Y(N+1),SCL(N+1),SY(N+1),L(N+1),U(N+1),F(N+1)
       DOUBLE PRECISION RES(N+1),W(N+1)
       DOUBLE PRECISION P,TAU,EPS,DDMAX
       INTEGER KNX(N+1),KNV(N+1),KNSTR(N+1)
@@ -34,7 +35,7 @@ C
          CALL CSTRING(L,U,N+1,KNX,KNV,KNSTR,NKNTS)
          CALL CDSTRING(L,U,N+1,KNSTR,NKNTS,RES)
          CALL LCLXTRMS(RES,N,KNX,NPEAK0)
-         IF(VERB) WRITE(*,*) NPEAK,NPEAK0,IC
+C         IF(VERB) WRITE(*,*) NPEAK,NPEAK0,IC
          IF(NPEAK0.LT.NPEAK.AND.IC.LT.ICMAX) THEN
             CALL ADJSTBDS(L,U,N+1,KNV,SQZFAC,.FALSE.)
             GOTO 55
@@ -62,12 +63,21 @@ C
       ENDIF
 C
 C
-      DO 5 I=1,N+1
+      DO 5 I=1,N
          F(I)=0D0
          L(I)=0D0
          U(I)=0D0
          RES(I)=Y(I)/SCL(I)
  5    CONTINUE
+         F(N+1)=0D0
+         L(N+1)=0D0
+         U(N+1)=0D0
+C      DO 5 I=1,N+1
+C         F(I)=0D0
+C         L(I)=0D0
+C         U(I)=0D0
+C         RES(I)=Y(I)/SCL(I)
+C 5    CONTINUE
 C
       CALL RSDLS(Y,F,SCL,N,RES)
       CALL CHCKINTS(RES,KNV,N,W,P,TAU,MULT,BMM,AGAIN,DDMAX)
@@ -93,7 +103,7 @@ C
  15      CONTINUE
          CALL RSDLS(Y,F,SCL,N,RES)
          CALL CHCKTRI(RES,W,KNV,N,P,TAU,BMM,AGAIN,DDMAX)
-         IF(VERB) WRITE(*,*) IC,NPEAK
+C         IF(VERB) WRITE(*,*) IC,NPEAK
          IF (AGAIN.AND.IC.LE.ICMAX) THEN
             IC=IC+1
             CALL ADJSTBDS(L,U,N+1,KNV,SQZFAC,LCL)
@@ -111,7 +121,7 @@ C
  20      CONTINUE
          CALL RSDLS(Y,F,SCL,N,RES)
          CALL CNTRUN(RES,KNV,N,RUNMAX,AGAIN)
-         IF(VERB) WRITE(*,*) IC,NPEAK
+C         IF(VERB) WRITE(*,*) IC,NPEAK
          IF (AGAIN.AND.IC.LE.ICMAX) THEN
             CALL ADJSTBDS(L,U,N+1,KNV,SQZFAC,LCL)
             CALL CSTRING(L,U,N+1,KNX,KNV,KNSTR,NKNTS)
@@ -131,7 +141,7 @@ C
       CALL RSDLS(Y,F,SCL,N,RES)
       IC=IC+1
       CALL CHCKINTS(RES,KNV,N,W,P,TAU,MULT,BMM,AGAIN,DDMAX)
-      IF(VERB) WRITE(*,*) IC,NPEAK
+C      IF(VERB) WRITE(*,*) IC,NPEAK
       IF (AGAIN.AND.IC.LE.ICMAX) THEN
          CALL ADJSTBDS(L,U,N+1,KNV,SQZFAC,LCL)
          GOTO 10
@@ -148,7 +158,7 @@ c      return
       CALL CSTRING(L,U,N+1,KNX,KNV,KNSTR,NKNTS)
       CALL CDSTRING(L,U,N+1,KNSTR,NKNTS,RES)
       CALL LCLXTRMS(RES,N,KNX,NPEAK1)
-      IF(VERB) WRITE(*,*) NPEAK,NPEAK1,IC
+C      IF(VERB) WRITE(*,*) NPEAK,NPEAK1,IC
       IF(NPEAK1.LE.NPEAK.AND.IC.LE.ICMAX) THEN
          CALL ADJSTBDS(L,U,N+1,KNV,SQZFAC,.FALSE.)
          GOTO 70
@@ -1069,10 +1079,13 @@ C
             D=(U(J+1)-L(J+1))/2D0
             U(J+1)=U(J+1)-(1D0-SQZFAC)*D
             L(J+1)=L(J+1)+(1D0-SQZFAC)*D
-            IF(J.GE.2.AND.KNV(J-1).EQ.0) THEN
-               D=(U(J)-L(J))/2D0
-               U(J)=U(J)-(1D0-SQZFAC)*D
-               L(J)=L(J)+(1D0-SQZFAC)*D
+c            IF(J.GE.2.AND.KNV(J-1).EQ.0) THEN
+            IF(J.GE.2) THEN
+               IF (KNV(J-1).EQ.0) THEN
+                 D=(U(J)-L(J))/2D0
+                 U(J)=U(J)-(1D0-SQZFAC)*D
+                 L(J)=L(J)+(1D0-SQZFAC)*D
+               ENDIF 
             ENDIF
          ENDIF
 c         IF(KNV(J).GE.1) THEN
@@ -1181,8 +1194,10 @@ C
 C
 c      return
       CALL MINSQR(X,FN,CM2,CM4,KNTS,ICNST,N)
+C  
+C     ICNST changed to (ICNST-1) due to possible fortran array bound error
 C
-      DO 30 I=1,ICNST
+      DO 30 I=1,(ICNST-1)     
          MU=DSQRT((CM2(KNTS(I+1))-CM2(KNTS(I)))/DBLE(KNTS(I+1)-KNTS(I)))
          DO 20 J=KNTS(I),KNTS(I+1)-1
             FN(J)=MU

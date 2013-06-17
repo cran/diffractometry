@@ -313,9 +313,12 @@
               as.integer(ts$pkloc),
               as.integer(ts$pks),
               as.integer(ts$knts),
-              integer(le=ts$pks),
-              integer(le=ts$pks),
-              integer(le=ts$pks),
+              integer(ts$pks),
+              integer(ts$pks),
+              integer(ts$pks),
+#              integer(le=ts$pks),
+#              integer(le=ts$pks),
+#              integer(le=ts$pks),
               PACKAGE="diffractometry"
               )
     list(exvalindl=tmp[[5]][tmp[[7]]>0], exvalindr=tmp[[6]][tmp[[7]]>0], minmax=tmp[[7]][tmp[[7]]>0],pkloc=ts$pkloc[tmp[[7]]>0])
@@ -542,7 +545,8 @@
               as.integer(ts$pkloc),
               as.integer(ts$pks),
               as.double(c(ts$fn[1],ts$fn[ts$pkloc[1]])),
-              integer(le=nind),
+#              integer(le=nind),
+              as.integer(rep(0,nind)),
               PACKAGE="diffractometry")
     tmp[[7]]
   }

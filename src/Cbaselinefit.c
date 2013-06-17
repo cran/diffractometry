@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <R_ext/Print.h>
 
 # define TOL 1e-16
 
@@ -167,7 +168,7 @@ void basiserg(int *np,
     x2=data_x[indr[i]];
       y1=basisl[indl[i]-2];
       y2=basisl[indr[i]];
-      printf("x1: %lf, x2: %lf, y1: %lf, y2: %lf\n",x1,x2,y1,y2);
+      Rprintf("x1: %lf, x2: %lf, y1: %lf, y2: %lf\n",x1,x2,y1,y2);
       a=(y1-y2)/(x1-x2);
       b=y1-a*x1;
       for(j=(indl[i]-1);j<indr[i];j++){
@@ -200,7 +201,7 @@ void pkcnt(int *indl,
 	mima=1;
       j++;
     }
-    while((pkloc[j]>=indl[i])&&(pkloc[j]<=indr[i])){
+    while((j<pks[0])&&(pkloc[j]>=indl[i])&&(pkloc[j]<=indr[i])){
       if(mima==1){
 	npks[i]++;
 	mima=-1;
@@ -255,8 +256,8 @@ void cholesky(double *A, int *n, double *L,int *FFF)
   }
   for(k=0;k<*n;k++){
     if(a[k][2]<TOL){
-      printf("a[%i][2]: %lf\n", k,a[k][2]);
-      printf("Nicht lösbar!\n");
+      Rprintf("a[%i][2]: %lf\n", k,a[k][2]);
+      Rprintf("Nicht lösbar!\n");
       *FFF=1;
       break;
     }
@@ -284,12 +285,12 @@ void vorwaerts(double *L, int *n, double *QTY, double *CCC)
 {
   int i,k;
   if(fabs(L[0])<TOL)
-      printf("Nicht loesbar! L[0]=0.0\n");
+      Rprintf("Nicht loesbar! L[0]=0.0\n");
   else{
     CCC[0]=QTY[0]/L[0];
     for(k=1;k<*n;k++)
 	if(fabs(L[k**n+k])<TOL){
-	    printf("Nicht loesbar! L[%i][%i]=0.0\n",k,k);
+	    Rprintf("Nicht loesbar! L[%i][%i]=0.0\n",k,k);
 	break;
       }
       else{
@@ -306,12 +307,12 @@ void rueckwaerts(double *L, int *n, double *GGG, double *CCC)
 {
   int i,k,l;
   if(fabs(L[(*n-1)**n+(*n-1)])<TOL)
-    printf("Nicht loesbar! L[%i]=0.0\n",(*n-1)**n+(*n-1));
+    Rprintf("Nicht loesbar! L[%i]=0.0\n",(*n-1)**n+(*n-1));
   else{
     GGG[*n-1]=CCC[*n-1]/L[(*n-1)**n+(*n-1)];
     for(k=*n-2;k>=0;k=k-1)
 	if(fabs(L[k**n+k])<TOL){
-	    printf("Nicht loesbar! L[%i][%i]=0.0\n",k,k);
+	    Rprintf("Nicht loesbar! L[%i][%i]=0.0\n",k,k);
 	break;
       }
       else{
@@ -387,7 +388,7 @@ void wsspoisschngd(double *x,
 
   *memok = (a==NULL)+(Z==NULL)+(F==NULL)+(N==NULL)+(qty==NULL)+(Q==NULL)+(R==NULL)+(T==NULL)+(L==NULL)+(w1==NULL)+(D==NULL)+(G==NULL)+(res==NULL);
   if (*memok!=0) {
-                 printf("Not enough memory for spline approximation!");
+                 Rprintf("Not enough memory for spline approximation!");
                  }
 
   if (*memok==0) {
@@ -416,7 +417,7 @@ void wsspoisschngd(double *x,
     if(*shrtint==1){
     do{
       counter+=1;
-      printf("Iteration: %i\n", counter); 
+      Rprintf("Iteration: %i\n", counter); 
       *F=0;
       STP=0;
       for(i=0;i<*n;i++)
@@ -463,7 +464,7 @@ void wsspoisschngd(double *x,
     }
     do{
       counter+=1;
-      printf("Iteration: %i\n", counter); 
+      Rprintf("Iteration: %i\n", counter); 
       *F=0;
       STP=0;
       for(i=0;i<*n;i++)
@@ -512,7 +513,7 @@ void wsspoisschngd(double *x,
   else
     do{
       counter+=1;
-      printf("Iteration: %i\n", counter); 
+      Rprintf("Iteration: %i\n", counter); 
       *F=0;
       STP=0;
       for(i=0;i<*n;i++)

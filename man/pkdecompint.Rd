@@ -61,6 +61,8 @@ Heidelberg. Springer Verlag
 \examples{
 ## Decomposition of data in peak interval into two components
 
+set.seed(0)
+
 par(mfrow=c(2,1))
 
 data(indiumoxide)

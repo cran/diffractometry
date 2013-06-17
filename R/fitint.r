@@ -89,7 +89,7 @@ partransoutp<-function(par,left,h) {
 
 
 
-### Funktionen für MRB 
+### Funktionen f?r MRB 
 
 mr<-function(resid) .C("multires",as.double(resid),as.double(1),as.integer(length(resid)),PACKAGE="diffractometry")[[2]]
 
@@ -114,22 +114,21 @@ function(n,q,erg) {
 
 
 
-### Anpassung für 1 Interval mit gegebener Anz. Kerne
+### Anpassung f?r 1 Interval mit gegebener Anz. Kerne
 
 
 `pkdecompint` <-
 function(baslfit, intnum, k, thresh=0, alpha=0.1, heterosk=TRUE, maxiter=10000, dispers=1, baselim=c(0.05,5)){
-  # Parametervektor: beta_0,beta_1,masse_1,m_1,mu_1,a_1,...,masse_k,m_k,mu_k,a_k
- 	# Abfrage ob Peak vorhanden
+  # Parameters: beta_0,beta_1,mass_1,m_1,mu_1,a_1,...,mass_k,m_k,mu_k,a_k
+ 	# Check whether there is at least one peak 
 	if(length(baslfit$npks) == 0)
     stop("no peaks are found in data")  
-  # Abfrage ob intnum einer Peaknummer entspricht
+  # Check whether parameter intnum is a reasonable number of peaks
   if(intnum > length(baslfit$npks))
     stop(c("value intnum must be between 1 and ", length(baslfit$npks)))
 	y<-baslfit$pks[baslfit$indlsep[intnum]:baslfit$indrsep[intnum]]		# Daten werden extrahiert
 	x<-baslfit$x[baslfit$indlsep[intnum]:baslfit$indrsep[intnum]]		# Daten werden extrahiert
 	gwidth<-diff(x)[1]
-#	print(length(y))
 	gewichte<-rep(1,length(y))																							# Gewichte werden mi 1 initialisiert (fï¿½r den Fall w=F)
 if (heterosk==FALSE) {			
 	sig<-baslfit$spl$sigma
@@ -148,18 +147,14 @@ basl<-(baslfit$baseline$basisl[baslfit$indlsep[intnum]:baslfit$indrsep[intnum]])
 
 versch<-baselim[1]*mean(basl)
 
-#print(c(versch,baselim[1],mean(basl)))
 																	bslope<-baselim[2]*gwidth
-													# Maximal zugelassene Verschiebung der Basislinie 
-#print(bslope)
+# Maximal allowed shift of baseline 
 
 n<-length(y)
 
 if (thresh==0) {
 	thresh<-mrquant(n,(1-alpha),mr)
 	if (length(thresh)!=1) thresh<-mrqsim(n,alpha)															}						# Falls keine Schranke angegeben, wird simuliert
-
-#print(thresh)
 
 auswertung<-function(para) {																										# Hier wird der C-Code aufgerufen, um fï¿½r gegebene Parameter
 	erg<-.C("p7fit",as.double(y),double(n),double(n),as.double(para),double(4*k+2),double(1),as.double(versch),	# die Anpassung und RSS auszurechnen
@@ -205,7 +200,7 @@ l<-l+1
 	}
 	}
 
-print(c(intnum,k,l))
+cat(paste("Interval: ",intnum,", Number of Peaks: ",k,", Iteration: ",l,"\n",sep=""))
 }
 
 
@@ -227,7 +222,7 @@ baslchg<-parb[1]+(1:n)*parb[2]
 list(intnr=intnum, x=x, y=y, fit=erg.fit, fitpk=fitpk, basl=basl, baslchg=baslchg, rss=erg.rss, num.ker=k, par=parb, parbl=parbl, parpks=parmat, accept=(fit.not.ok==0), alpha=alpha, thresh=thresh)
 }
 
-### Anpassung für kompletten Datensatz
+### Function to fit peaks for whole data set
 
 
 `pkdecomp` <-
@@ -239,7 +234,7 @@ function(baslfit,intnum=0, alpha=0.1, maxiter1=500, maxiter=10000, hmax=5, maxso
 	if(baselim[2] < 0) {
     stop("baselim[2] must be greater than zero")
   }
-  # alpha darf nur aus der Menge {0.01,0.02,...,0.2} stammen
+  # alpha must be in {0.01,0.02,...,0.2}
   if(alpha > 0.01 && alpha < 0.2) 
       alpha = round(alpha, digits = 2)  
   if(!any(alpha == (1:20)/100)) {
@@ -248,10 +243,10 @@ function(baslfit,intnum=0, alpha=0.1, maxiter1=500, maxiter=10000, hmax=5, maxso
   }   
 	geserg<-NULL
 	j<-0
-	 	# Abfrage ob Peak vorhanden
+	 	# chekc whether there is at least one peak
 	if(length(baslfit$npks) == 0)
     stop("no peaks are found in data")  
-  # Abfrage ob intnum einer Peaknummer entspricht
+  # check whether intnum is a reasonable number of peaks
   if(intnum > length(baslfit$npks))
     stop(c("value intnum must be between 1 and ", length(baslfit$npks)))
 	if (intnum==0) intnum<-1:length(baslfit$indlsep)
@@ -270,7 +265,7 @@ function(baslfit,intnum=0, alpha=0.1, maxiter1=500, maxiter=10000, hmax=5, maxso
 		thresh<-tfout$thresh
 		}
 		
-		if (maxsolutions>1 & accept==TRUE) {		#Falls mehrere Lï¿½sungen gewï¿½nscht, werden bei Erfolg maxsolutions Lï¿½sungen produziert
+		if (maxsolutions>1 & accept==TRUE) {		#prodcue maxsolutions solutions, if more than one is requested
 		for (m in 2:maxsolutions) {
 			if (h==1) tfout<-pkdecompint(baslfit,z,(h-1),thresh,alpha,heterosk=heterosk,baselim=baselim,dispers=dispers,maxiter=maxiter1)
 			if (h>1) tfout<-pkdecompint(baslfit,z,(h-1),thresh,alpha,heterosk=heterosk,baselim=baselim,dispers=dispers,maxiter)	
@@ -284,7 +279,7 @@ geserg
 }
 
 
-### Berechnung des zusätzlichen Dispersionsparameters falls heterosk=FALSE und disp=0 
+### Calculate additional dispersion parameter if heterosk=FALSE and disp=0 
 
 `calcdisp` <-
 function(daten) {

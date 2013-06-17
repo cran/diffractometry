@@ -48,12 +48,14 @@ Annals of Applied Statistics, Vol. 2, No. 3, 861-886..
 ## Identification of baseline and peak as well as decomposition of the peaks  
 ## Plot shows baseline and decomposition of first found peak into two components 
 
+set.seed(0)
+
 par(mfrow=c(3,1))
 
 data(indiumoxide)
 indox<-indiumoxide[1901:2400,]
 
-sol<-diffractogram(indox,maxsolutions=1)
+sol<-diffractogram(indox,maxsolutions=1,maxiter1=50,maxiter=250)
 
 ind<-c(sol$bas$indlsep[1],sol$bas$indrsep[1])
 

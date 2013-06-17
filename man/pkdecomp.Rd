@@ -49,6 +49,8 @@ Heidelberg. Springer Verlag
 \examples{
 ## Decomposition of data in peak interval into two components
 
+set.seed(0)
+
 par(mfrow=c(2,1))
 
 data(indiumoxide)
@@ -59,7 +61,7 @@ ind<-c(base$indlsep[1],base$indrsep[1])
 
 plot(indox[ind[1]:ind[2],1], base$baseline$peaks[ind[1]:ind[2]],xlab="",ylab="")
 
-pks<-pkdecomp(base,intnum=1,maxsolutions=1)
+pks<-pkdecomp(base,intnum=1,maxsolutions=1,maxiter1=50,maxiter=250)
 
 lines(indox[ind[1]:ind[2],1],pks[[2]]$fit,col="red")
 plot(indox[ind[1]:ind[2],1],pks[[2]]$fitpk[1,],ylim=c(0,1800),type="l",xlab="",ylab="")
