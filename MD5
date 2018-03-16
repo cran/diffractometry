@@ -1,8 +1,8 @@
-faceaec339d4554e04773becec389123 *DESCRIPTION
-b2724aaf290671823538d875e27d512b *NAMESPACE
-936abec79dbb1c6771735131335517cc *R/baselinefit.r
-4a81a4c67d15d309f7611bf5e8ece3c4 *R/diffractogram.r
-1dc7c364a5bd827d1621c8715a4fa9c6 *R/fitint.r
+ff8d7499d1a7c164ff1bebc16635dfb4 *DESCRIPTION
+1d4a202b4195545ebf283a29d48e0d6a *NAMESPACE
+f0060f8419ffc43ade9c38107e579b66 *R/baselinefit.r
+7ce4e8870a72d96cf7c76a050c345a74 *R/diffractogram.r
+f4a1d39767efdc45545ea2bcc8cb75d5 *R/fitint.r
 1a05ae12ab731deafeed689f0427457b *R/sysdata.rda
 9d5240abd14c40d5822c7d7a67e7d8a4 *data/indiumoxide.rda
 97c4d993771546a0859b2fbe1729c8ae *man/baselinefit.Rd
@@ -14,4 +14,5 @@ b92333ee5257cb94853a1597de65c322 *man/diffractometry-package.Rd
 7d69d0e7afd4ef138ddc8a07a72b9fa7 *src/Cbaselinefit.c
 be590667c4620ec8590f0962443e760b *src/Fbaselinefit.f
 49d88a553bc1af41d2adfe41900a5e26 *src/MaxSubsequenceMod.cpp
+ecbef56c6aa97da6472a1df78de65910 *src/init.c
 536c207dd1552ee218b958b94e8d5ecc *src/p7fit.c
